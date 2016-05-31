@@ -1,4 +1,4 @@
-package real.twosigma.stringchain;
+package twosigma;
 
 import java.util.Arrays;
 import java.util.Comparator;

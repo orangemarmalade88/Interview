@@ -1,4 +1,4 @@
-package real.twosigma.friendcircles;
+package twosigma;
 
 /*
 
