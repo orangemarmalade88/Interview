@@ -1,11 +1,11 @@
-package real.box.elevator;
+package box.elevator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import real.box.elevator.Elevator.Direction;
+import box.elevator.Elevator.Direction;
 
 public class ElevatorController {
 	private List<Elevator> elevators = null;

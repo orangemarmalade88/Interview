@@ -1,4 +1,4 @@
-package real.box.elevator;
+package box.elevator;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

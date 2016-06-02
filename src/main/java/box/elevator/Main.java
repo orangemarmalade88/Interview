@@ -1,7 +1,7 @@
-package real.box.elevator;
+package box.elevator;
 
-import real.box.elevator.Elevator.Direction;
-import real.box.elevator.Elevator.State;
+import box.elevator.Elevator.Direction;
+import box.elevator.Elevator.State;
 
 public class Main {
 

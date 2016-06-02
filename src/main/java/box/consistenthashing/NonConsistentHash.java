@@ -1,30 +1,26 @@
-package real.box.consistenthashing;
+package box.consistenthashing;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.TreeMap;
 import java.util.UUID;
 
-public class ConsistentHash {
+public class NonConsistentHash {
 
-	// Add, Remove, Get O(lgN), N = nodes
-
-	private final int numberOfReplicas;
-	private final TreeMap<BigInteger, Node> hashRing = new TreeMap<>();
+	private final List<Node> list = new ArrayList<>();
 	MessageDigest md;
 
-	public ConsistentHash(int numberOfReplicas) {
+	public NonConsistentHash() {
 		try {
 			md = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-
-		this.numberOfReplicas = numberOfReplicas;
 	}
 
 	private BigInteger hash(String key) {
@@ -55,30 +51,24 @@ public class ConsistentHash {
 	}
 
 	public void add(Node node) {
-		for (int i = 0; i < numberOfReplicas; i++) {
-			hashRing.put(hash(node.name + i), node);
-		}
+		list.add(node);
 	}
 
 	public void remove(Node node) {
-		for (int i = 0; i < numberOfReplicas; i++) {
-			hashRing.remove(hash(node.name + i), node);
-		}
+		list.remove(node);
 	}
 
 	public Node getNode(String key) {
-		if (hashRing.isEmpty())
+		if (list.isEmpty())
 			return null;
 		BigInteger hashkey = hash(key);
-		Map.Entry<BigInteger, Node> entry = hashRing.ceilingEntry(hashkey);
-		if (entry == null)
-			return hashRing.firstEntry().getValue();
-		else
-			return entry.getValue();
+		int id = hashkey.mod(new BigInteger(String.valueOf(list.size())))
+				.intValue();
+		return list.get(id);
 	}
 
 	public static void collisionTest() {
-		ConsistentHash ch = new ConsistentHash(100);
+		NonConsistentHash ch = new NonConsistentHash();
 
 		int nodes = 30;
 		for (int i = 0; i < nodes; i++) {
@@ -86,7 +76,7 @@ public class ConsistentHash {
 			ch.add(n);
 		}
 
-		ConsistentHash ch2 = new ConsistentHash(100);
+		NonConsistentHash ch2 = new NonConsistentHash();
 
 		int nodes2 = 31;
 		for (int i = 0; i < nodes2; i++) {
@@ -115,7 +105,7 @@ public class ConsistentHash {
 	}
 
 	public static void uniformTest() {
-		ConsistentHash ch = new ConsistentHash(100);
+		NonConsistentHash ch = new NonConsistentHash();
 		Map<Node, Integer> count = new LinkedHashMap<>();
 
 		int nodes = 30;

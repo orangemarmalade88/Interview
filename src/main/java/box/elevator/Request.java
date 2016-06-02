@@ -1,6 +1,6 @@
-package real.box.elevator;
+package box.elevator;
 
-import real.box.elevator.Elevator.Direction;
+import box.elevator.Elevator.Direction;
 
 public class Request {
 	int destination;

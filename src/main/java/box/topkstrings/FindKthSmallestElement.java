@@ -1,4 +1,4 @@
-package real.box.topkstrings;
+package box.topkstrings;
 
 import java.util.Collections;
 import java.util.PriorityQueue;

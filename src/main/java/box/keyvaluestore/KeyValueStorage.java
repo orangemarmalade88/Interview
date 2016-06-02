@@ -1,4 +1,4 @@
-package real.box.keyvaluestore;
+package box.keyvaluestore;
 
 import java.util.HashMap;
 import java.util.Map;
