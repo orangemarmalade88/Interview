@@ -35,3 +35,5 @@ strs
 subarrays
 eval
 xth
+deathi
+birthi
