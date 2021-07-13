@@ -37,3 +37,6 @@ eval
 xth
 deathi
 birthi
+actuali
+minimumi
+alice
