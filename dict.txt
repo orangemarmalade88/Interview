@@ -40,3 +40,8 @@ birthi
 actuali
 minimumi
 alice
+ik
+seq
+flipped
+deci
+hashmap
