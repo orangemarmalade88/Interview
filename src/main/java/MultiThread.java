@@ -1,4 +1,5 @@
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 class Counter {
@@ -19,9 +20,19 @@ class Counter {
 	}
 }
 
+class C {
+	class D {
+		int a;
+	}
+}
+
 public class MultiThread {
 
 	public static void main(String[] args) throws InterruptedException {
+		Counter c = new Counter();
+
+		LinkedList<Counter> e = new LinkedList<>();
+		e.remove(c);
 
 		Set<Integer> s = new LinkedHashSet<>();
 
@@ -34,8 +45,6 @@ public class MultiThread {
 		for (int i : s) {
 			System.out.println(i);
 		}
-
-		Counter c = new Counter();
 
 		Thread t1 = new Thread(new Runnable() {
 			@Override
