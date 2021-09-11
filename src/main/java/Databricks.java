@@ -1,5 +1,4 @@
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -97,13 +96,12 @@ public class Databricks {
 	}
 
 	public static void main(String[] args) {
-		ArrayList<String> strings = new ArrayList<String>();
-		strings.add("Hello, World!");
-		strings.add("Welcome to CoderPad.");
-		strings.add("This pad is running Java " + Runtime.version().feature());
-
-		for (String string : strings) {
-			System.out.println(string);
+		int res = 0;
+		for (int j = 1; j <= 64; j++) {
+			for (int i = 1; i <= j; i++) {
+				res |= i;
+			}
+			System.out.println(res);
 		}
 	}
 }
