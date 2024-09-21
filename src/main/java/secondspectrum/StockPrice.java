@@ -3,9 +3,9 @@ package secondspectrum;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,12 +13,12 @@ public class StockPrice {
 
 	static class StockData {
 		private final String name;
-		private LocalDate firstDate;
-		private LocalDate lastDate;
+		private Date firstDate;
+		private Date lastDate;
 		private double firstValue;
 		private double lastValue;
 
-		public StockData(String name, LocalDate date, double value) {
+		public StockData(String name, Date date, double value) {
 			this.name = name;
 			this.firstDate = date;
 			this.firstValue = value;
@@ -26,12 +26,12 @@ public class StockPrice {
 			this.lastValue = value;
 		}
 
-		public void addData(LocalDate date, double value) {
-			if (date.isBefore(firstDate)) {
+		public void addData(Date date, double value) {
+			if (date.before(firstDate)) {
 				firstDate = date;
 				firstValue = value;
 			}
-			if (date.isAfter(lastDate)) {
+			if (date.after(lastDate)) {
 				lastDate = date;
 				lastValue = value;
 			}
@@ -50,35 +50,17 @@ public class StockPrice {
 		}
 	}
 
-	static private LocalDate parseDate(String dateStr) {
-		LocalDate result = null;
+	static private Date parseDate(String dateStr) {
+		Date result = null;
+
+		// Without zero-padding, use SimpleDateFormat
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
 		try {
-			DateTimeFormatter formatter = DateTimeFormatter
-					.ofPattern("yyyy-M-d");
-			result = LocalDate.parse(dateStr, formatter);
+			result = dateFormat.parse(dateStr);
+
 			return result;
-		} catch (DateTimeParseException e) {
-		}
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter
-					.ofPattern("yyyy-M-dd");
-			result = LocalDate.parse(dateStr, formatter);
-			return result;
-		} catch (DateTimeParseException e) {
-		}
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter
-					.ofPattern("yyyy-MM-d");
-			result = LocalDate.parse(dateStr, formatter);
-			return result;
-		} catch (DateTimeParseException e) {
-		}
-		try {
-			DateTimeFormatter formatter = DateTimeFormatter
-					.ofPattern("yyyy-MM-dd");
-			result = LocalDate.parse(dateStr, formatter);
-			return result;
-		} catch (DateTimeParseException e) {
+		} catch (ParseException e) {
 		}
 		return result;
 	}
@@ -93,7 +75,7 @@ public class StockPrice {
 				if (parts.length >= 5) {
 					String name = parts[0];
 
-					LocalDate date = parseDate(parts[1]);
+					Date date = parseDate(parts[1]);
 					if (date == null)
 						continue;
 
@@ -156,7 +138,7 @@ public class StockPrice {
 	}
 
 	public static void main(String[] args) {
-		String csvFile = "values.csv";
+		String csvFile = "C:\\Users\\Lenovo\\Downloads\\v.csv";
 
 		Map<String, StockData> stockDataMap = readDataFromCSV(csvFile);
 

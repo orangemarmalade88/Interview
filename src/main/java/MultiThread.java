@@ -2,30 +2,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-class Counter {
-	int count;
-
-	public synchronized void increment() throws InterruptedException {
-		Thread.sleep(100);
-		count++;
-		System.out.println("+");
-	}
-
-	public synchronized void decrement() throws InterruptedException {
-		Thread.sleep(100);
-
-		count--;
-		System.out.println("-");
-
-	}
-}
-
-class C {
-	class D {
-		int a;
-	}
-}
-
 public class MultiThread {
 
 	public static void main(String[] args) throws InterruptedException {
@@ -50,12 +26,7 @@ public class MultiThread {
 			@Override
 			public void run() {
 				for (int i = 0; i < 100; i++) {
-					try {
-						c.increment();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					c.decrement();
 				}
 			}
 		});
@@ -64,12 +35,7 @@ public class MultiThread {
 			@Override
 			public void run() {
 				for (int i = 0; i < 100; i++) {
-					try {
-						c.decrement();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					c.decrement();
 				}
 			}
 		});
